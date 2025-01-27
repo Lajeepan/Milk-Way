@@ -1,0 +1,129 @@
+.container {
+  display: flex;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  height: 700px;
+  /* overflow: hidden; */
+}
+
+.leftSection {
+  flex: 1;
+
+}
+
+.leftSection img {
+  height: 600px;
+  object-fit: cover;
+  
+}
+
+.rightSection {
+  flex: 1;
+  padding-left: 100px;
+  padding-right: 100px;
+  gap: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ 
+}
+
+.toggleButtons {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.btn {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+  background-color: #ddd;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.btn:last-child {
+  margin-right: 0;
+}
+
+.active {
+  background-color: #f04e45;
+}
+
+.rightSection h1 {
+  margin: 0;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: #333;
+}
+
+.rightSection p {
+  margin: 0;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.rightSection form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.rightSection form input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.submitBtn {
+  padding: 10px;
+  background-color: #f04e45;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background-color: #c03c38;
+}
+
+.loginLink {
+  text-align: center;
+  margin-top: 15px;
+  color: #666;
+}
+
+.loginLink a {
+  color: #f04e45;
+  text-decoration: none;
+}
+
+.loginLink a:hover {
+  text-decoration: underline;
+}
+
+.forgotPassword {
+  align-content: center;
+  text-align: center;
+  text-decoration: none;
+  background: #f04e45;
+  height: 30px;
+  width: 200px;
+  color: white;
+  margin-left: 160px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+

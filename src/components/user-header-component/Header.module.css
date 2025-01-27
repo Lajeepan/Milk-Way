@@ -1,0 +1,143 @@
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    margin: 20px auto;
+    max-width: 1200px;
+    background-color: #f9f9f9;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+  }
+  
+  /* Logo */
+  .logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: #333;
+  }
+  
+  /* Navigation */
+  .navLinks {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navLinks li {
+    margin: 0;
+  }
+  
+  .navLinks li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 20px;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .navLinks li a:hover {
+    color: #e63946;
+  }
+  
+  /* Search and Cart Section */
+  .searchCart {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .searchBar {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+    transition: border 0.3s;
+  }
+  
+  .searchBar:focus {
+    border-color: #e63946;
+    outline: none;
+  }
+  
+  #search-box,
+  #cart-b {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  #search-box:hover,
+  #cart-b:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Account Dropdown */
+  .account {
+    position: relative;
+  }
+  
+  #account-b {
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    padding: 2px;
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+  
+  #account-b:hover {
+    transform: scale(1.1);
+  }
+  
+  .dropdownMenu {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    list-style: none;
+    padding: 10px 0;
+    display: none;
+    width: 200px;
+    z-index: 1000;
+  }
+  
+  .dropdownMenu li {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .dropdownMenu li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .dropdownMenu li a:hover {
+    background-color: #e63946;
+    color: #fff;
+  }
+  
+  .dropdownMenu img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-right: 10px;
+  }
+  
+  .account.show .dropdownMenu {
+    display: block;
+  }
+  
