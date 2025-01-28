@@ -16,7 +16,7 @@ export async function GET() {
   try {
     console.log('Connecting to the database...');
     await DBconnect(); // Connect to DB
-    console.log('Database connected successfully!');
+    console.log('Database connected successfully!'); 
 
     const products: Product[] = await Product.find({}); // Fetch products from DB
     // console.log('Products fetched:', products);

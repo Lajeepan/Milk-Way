@@ -1,9 +1,12 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-// MongoDB connection string
 const MONGODB_URI = process.env.MONGODB_URI;
 
 const DBconnect = async () => {
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI environment variable is not defined');
+  }
+
   const connectionState = mongoose.connection.readyState;
 
   if (connectionState === 1) {
@@ -17,7 +20,7 @@ const DBconnect = async () => {
   }
 
   try {
-    await mongoose.connect(MONGODB_URI!, {
+    await mongoose.connect(MONGODB_URI, {
       dbName: 'Milk-Way',
       bufferCommands: true,
     });
@@ -26,6 +29,6 @@ const DBconnect = async () => {
     console.error('MongoDB connection error:', error);
     throw new Error('MongoDB connection error');
   }
-}
+};
 
 export default DBconnect;

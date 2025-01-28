@@ -9,7 +9,7 @@ interface ProductData {
   image: string;
   description?: string;
   createdAt?: Date;
-  quantity?: number;
+  quantity?: number; 
 }
 
 // Named POST export for the App Directory structure
@@ -25,7 +25,7 @@ export async function POST(req: NextApiRequest) {
         { status: 400 }
       );
     }
-
+ 
     // Connect to MongoDB
     await DBconnect();
 

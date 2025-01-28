@@ -1,69 +1,62 @@
+// src/app/product/[id]/page.tsx
+
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router"; // Use useRouter from 'next/router'
 import Image from "next/image";
-import Styles from "./Single-product.module.css"; // Add styles for this page
+import { useRouter } from "next/router";
+import styles from "../singleproduct/Single-product.module.css";
 
 interface Product {
   _id: string;
   name: string;
   price: number;
   image: string;
-  description: string;
-  createdAt: string;
-  quantity: number;
+  description?: string;
+  createdAt?: string;
+  quantity?: number;
 }
 
-export default function SingleProductPage() {
+export default function Singleproduct() {
   const [product, setProduct] = useState<Product | null>(null);
-  const [error, setError] = useState<string | null>(null); // State for error handling
-  const router = useRouter(); // Initialize useRouter
-  const { id } = router.query; // Get the product ID from the URL params
+  const router = useRouter();
+  const { id } = router.query as { id: string }; // Access the dynamic id from the URL
 
   useEffect(() => {
     const fetchProduct = async () => {
-      if (id) { // Ensure the ID is available before fetching
-        try {
-          const res = await fetch(`/api/product/${id}`);
-          if (!res.ok) {
-            throw new Error("Failed to fetch product details");
-          }
-          const data = await res.json();
-          setProduct(data);
-        } catch (error) {
-          setError("Error fetching product details. Please try again later.");
-          console.error("Error fetching product details:", error);
+      if (!id) return;
+
+      try {
+        const res = await fetch(`/api/product/${id}`);
+        if (!res.ok) {
+          throw new Error("Product not found");
         }
+        const data = await res.json();
+        setProduct(data);
+      } catch (error) {
+        console.error("Failed to fetch product:", error);
       }
     };
-    fetchProduct();
-  }, [id]); // Re-fetch when the ID changes
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+    fetchProduct();
+  }, [id]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // Or handle loading state here
   }
 
   return (
-    <div className={Styles.singleProductContainer}>
-      <Image
-        src={product.image || "/default-image.jpg"} // Fallback image
-        alt={product.name}
-        width={300}
-        height={300}
-        className={Styles.image}
-      />
-      <h1 className={Styles.name}>{product.name}</h1>
-      <p className={Styles.description}>{product.description}</p>
-      <p className={Styles.price}>Price: R.S {product.price}</p>
-      <p className={Styles.quantity}>Available Quantity: {product.quantity}</p>
-      <p className={Styles.createdAt}>
-        Added on: {new Date(product.createdAt).toLocaleDateString()}
-      </p>
+    <div className={styles.productContainer}>
+      <div className={styles.productImage}>
+        <Image src={product.image} alt={product.name} width={300} height={300} />
+      </div>
+      <div className={styles.productDetails}>
+        <h2 className={styles.productPrice}>R.S {product.price}</h2>
+        <p className={styles.productDate}>{product.createdAt}</p>
+        <h1 className={styles.productName}>{product.name}</h1>
+        <p className={styles.productDescription}>{product.description}</p>
+        <p className={styles.productQuantity}> {product.quantity} L</p>
+      </div>
     </div>
   );
 }

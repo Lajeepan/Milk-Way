@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Image from 'next/image';
-import styles from './Upload.module.css';
+import styles from '../upload-product-components/Upload.module.css';
 
 interface Product {
   name: string;
@@ -10,7 +10,7 @@ interface Product {
   description?: string;
   quantity?: number;
 }
-
+ 
 interface ApiResponse {
   product?: Product;
   error?: string;
@@ -74,6 +74,8 @@ export default function AddProduct() {
   };
 
   return (
+    <div>
+      <h1 className={styles.title}>Add Product</h1>
     <form onSubmit={handleSubmit} className={styles.addProductForm}>
       <input
         type="text"
@@ -84,7 +86,7 @@ export default function AddProduct() {
         className={styles.inputField}
       />
       <input
-        type="number"
+        type="number" 
         placeholder="Product Price"
         value={product.price}
         onChange={(e) => setProduct({ ...product, price: parseFloat(e.target.value) })}
@@ -123,5 +125,6 @@ export default function AddProduct() {
       <button type="submit" className={styles.submitButton}>Add Product</button>
       {message && <p className={styles.message}>{message}</p>}
     </form>
+    </div>
   );
 }
