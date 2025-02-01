@@ -1,14 +1,31 @@
-// models/Product.js
-import mongoose from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
-const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  price: { type: Number, required: true },
-  image: { type: String, required: true },
-  description: { type: String, required: true },  // Now required
-  createdAt: { type: Date, required: true },     // Now required
-  quantity: { type: Number, required: true },    // Now required
-});
+interface Product extends Document {
+  name: string;
+  price: number;
+  image: string;
+  description: string;
+  createdAt: Date;
+  quantity: number;
+}
 
-export default mongoose.models.Product || mongoose.model('Product', productSchema);
- 
+const productSchema = new Schema<Product>(
+  {
+    name: { type: String, required: true },
+    price: { 
+      type: Number, 
+      required: true, 
+      min: [0, 'Price must be a positive number'] 
+    },
+    image: { type: String, required: true },
+    description: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },  // Automatically sets to current date
+    quantity: { 
+      type: Number, 
+      required: true, 
+      min: [0, 'Quantity cannot be negative'] 
+    },
+  }
+);
+
+export default mongoose.models.Product || mongoose.model<Product>('Product', productSchema);

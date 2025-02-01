@@ -1,41 +1,88 @@
-/* styles/Banner.module.css */
 .banner {
   position: relative;
   width: 100%;
-  
-  
+  height: 100vh; /* Full height of the viewport */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: zoomIn 3s ease-in-out forwards; /* Zoom-in effect for the banner */
 }
 
-.banner img {
-  width: 100%; /* Make the image cover the full width */
-  height: 1000px; /* Ensure the image fills the height of the banner */
-  object-fit: cover; /* Ensure the image covers the area without distorting */
-  filter: brightness(50%); /* Dim the image to make text more visible */
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0; /* Hidden initially */
+  animation: fadeInImage 2s ease-in-out forwards; /* Fade-in for the image */
 }
 
-.bannerText {
+.overlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center the text */
-  color: white; /* Text color */
-  font-size: 90px; /* Adjust text size */
-  font-weight: bold; /* Make the text bold */
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Add a shadow for readability */
-  /* text-align: center; */
-  z-index: 10; /* Ensure text is above the image */
-  padding-left: 800px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.text {
+  color: rgb(161, 156, 156);
+  font-size: 5rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7); /* Shadow for better readability */
+  font-family: 'Arial', sans-serif;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid white; /* Cursor effect */
+  width: 0;
+  animation: typing 3s steps(30) 1s forwards, blink 0.75s step-end infinite, fadeInText 2s ease-in-out 0.5s forwards; /* Text typing + fade-in */
+}
 
-@media (max-width: 768px) {
-  .bannerText {
-    font-size: 2rem; /* Smaller text for smaller screens */
+/* Typing effect */
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
   }
 }
 
-@media (max-width: 480px) {
-  .bannerText {
-    font-size: 1.5rem; /* Further reduce the text size for mobile screens */
+/* Cursor blink effect */
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+/* Fade-in effect for text */
+@keyframes fadeInText {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Zoom-in effect for the banner */
+@keyframes zoomIn {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Fade-in effect for the image */
+@keyframes fadeInImage {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
