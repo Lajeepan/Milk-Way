@@ -45,7 +45,7 @@ export async function POST(req: NextApiRequest) {
       quantity,
     });
 
-    // Return success response
+    // Return success response 
     return new Response(
       JSON.stringify({ message: 'Product added successfully', product: newProduct }),
       { status: 200 }
