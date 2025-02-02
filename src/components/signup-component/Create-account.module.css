@@ -1,121 +1,99 @@
-/* Container for the form */
-.formContainer {
+/* Signup Page Container */
+.signupContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+/* Signup Form */
+.signupForm {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
   max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  background: linear-gradient(135deg, #f6f7f8, #d9e4f5);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  animation: slideIn 0.5s ease-out;
+  display: flex;
+  flex-direction: column;
 }
 
-.formContainer:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-  transform: translateY(-10px);
-}
-
-/* Keyframe for slide-in animation */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Title Styling */
-.formTitle {
+.signupForm h2 {
   text-align: center;
-  font-size: 28px;
-  margin-bottom: 25px;
-  color: #333;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: color 0.3s ease;
-}
-
-.formTitle:hover {
-  color: #007bff;
+  margin-bottom: 1rem;
 }
 
 /* Input Fields */
-.inputField {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
+.signupForm label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px;
+  display: block;
+}
+
+.signupForm input,
+.signupForm select {
+  width: 100%; /* Ensure all inputs take full width */
+  padding: 10px;
+  margin-top: 5px;
   border: 1px solid #ccc;
-  border-radius: 8px;
+  border-radius: 5px;
   font-size: 16px;
-  color: #333;
-  background-color: #f9f9f9;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-}
-
-.inputField:focus {
-  border-color: #007bff;
   outline: none;
-  background-color: #e6f0ff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
 }
 
-/* Button Styling */
-.submitButton {
-  width: 100%;
-  padding: 14px;
-  background-color: #007bff;
-  color: white;
+.inputField {
+  background: white;
+}
+
+/* Password Field with Show/Hide Button */
+.passwordContainer {
+  position: relative;
+}
+
+.passwordContainer input {
+  width: 100%; /* Ensure full width for password input */
+  ; /* Make room for the show/hide button */
+}
+
+.showPassword {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
   border: none;
-  border-radius: 8px;
-  font-size: 18px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 18px;
 }
 
-.submitButton:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-
-.submitButton:active {
-  transform: scale(1);
-}
-
-/* Redirect Styling */
-.redirect {
+/* Forgot Password */
+.forgotPassword {
   text-align: center;
-  margin-top: 15px;
-}
-
-.redirect a {
+  display: block;
+  margin-top: 10px;
   color: #007bff;
   text-decoration: none;
-  font-weight: bold;
 }
 
-.redirect a:hover {
+.forgotPassword:hover {
   text-decoration: underline;
 }
 
+/* Signup Button */
+.signupButton {
+  margin-top: 15px;
+  background: #007bff;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .formContainer {
-    padding: 20px;
-  }
-
-  .formTitle {
-    font-size: 24px;
-  }
-
-  .inputField,
-  .submitButton {
-    font-size: 14px;
-  }
+.signupButton:hover {
+  background: #0056b3;
 }

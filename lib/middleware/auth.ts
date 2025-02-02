@@ -1,25 +1,30 @@
-// /middleware/auth.ts
-import { NextApiRequest, NextApiResponse } from 'next';  // Ensure this import is correct
-import jwt from 'jsonwebtoken';
+import { NextResponse } from 'next/server';
+import { verifyToken } from '../utils/jwt'; // Assuming you have a verifyToken function in this path
 
-export const withAuth = (handler: (req: NextApiRequest, res: NextApiResponse) => void) => {
-  return async (req: NextApiRequest, res: NextApiResponse) => {
-    const token = req.headers.authorization?.split(' ')[1];  // Ensure headers are recognized
-    if (!token) {
-      return res.status(401).json({ message: 'Unauthorized' });
+interface DecodedToken {
+  role: string;
+  // Add other properties if needed
+}
+
+export const roleAuth = (requiredRoles: string[]) => async (req: Request) => {
+  const token = req.headers.get('Authorization')?.split(' ')[1]; // Get the token from headers
+
+  if (!token) {
+    return NextResponse.json({ error: 'Authentication token is missing' }, { status: 401 });
+  }
+
+  try {
+    const decoded = (await verifyToken(token)) as DecodedToken; // Decode JWT token with type casting
+    if (!requiredRoles.includes(decoded.role)) {
+      return NextResponse.json(
+        { error: 'Access Denied. You don\'t have the necessary permissions.' },
+        { status: 403 }
+      );
     }
 
-    if (!process.env.JWT_SECRET) {
-      return res.status(500).json({ message: 'Server error, JWT secret missing' });
-    }
-
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as { userId: string };
-      req.user = decoded;  // TypeScript should now recognize req.user if next.d.ts is properly extended
-      return handler(req, res);
-    } catch (error) {
-      console.error(error);  // Optional: log the error for debugging
-      return res.status(401).json({ message: 'Unauthorized' });
-    }
-  };
+    return NextResponse.json({ message: 'Authorized' }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+    console.error('Error during roleAuth:', error);
+  }
 };

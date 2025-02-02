@@ -1,65 +1,73 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import styles from './Login.module.css'; // External module for CSS
-import Link from 'next/link';
+import React, { useState } from "react";
+import Link from "next/link";
+import axios from "axios";
+import { toast } from "react-toastify"; 
+import { useRouter } from "next/router";
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+const Loginpage: React.FC = () => {
+  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const login = async () => {
-    setError(''); // Reset any existing error before trying login
 
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
-    const data = await res.json();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-    if (res.ok) {
-      localStorage.setItem('token', data.token);
-      router.push('/protected');
-    } else {
-      setError(data.message || 'Something went wrong. Please try again.');
+    try {
+      const response = await axios.post("/api/user/login", { email, password });
+       // Declare role once here
+      if (response.status === 201) {
+        toast.success(response.data.message, { style: { width: "400px" } });
+        // Redirect based on role
+        router.push("/dashboard");
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error: any) {
+      toast.error(error.response?.data?.error || "Something went wrong.");
     }
   };
 
   return (
-    <div className={styles.formContainer}>
-      <h2 className={styles.formTitle}>Signin</h2>
-      {error && <p className={styles.error}>{error}</p>}
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email"
-        className={styles.inputField}
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your password"
-        className={styles.inputField}
-      />
-      <button className={styles.submitButton} onClick={login}>
-        Login
-      </button>
-      <div className={styles.redirect}>
-        <p> Don&apos;t have an account?</p>
-        <Link href="/signup">
-          Sign in here
-        
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-form">
+        <h2>Login</h2>
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Email"
+          required
+          className="input-field"
+        />
+        <div className="password-container">
+          <input
+            onChange={(e) => setPassword(e.target.value)}
+            type={passwordVisible ? "text" : "password"}
+            placeholder="Password"
+            required
+            className="input-field"
+          />
+          <span
+            className="show-password"
+            onClick={togglePasswordVisibility}
+            role="button"
+          >
+          </span>
+        </div>
+        <button type="submit" className="login-button">
+          Login
+        </button>
+        <Link href="/signup" className="create-account">
+          Create Account
         </Link>
-      </div>
+      </form>
     </div>
   );
 };
 
-export default Login;
+export default Loginpage;

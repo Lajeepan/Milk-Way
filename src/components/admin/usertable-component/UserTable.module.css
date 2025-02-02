@@ -1,0 +1,50 @@
+/* UserTable.module.css */
+
+.tableSection {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-left: 300px;
+  }
+  
+  .sectionTitle {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333333;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .th {
+    text-align: left;
+    background-color: #F8D8A0;
+    color: black;
+    padding: 10px;
+    border-bottom: 1px solid #CCCCCC;
+  }
+  
+  .td {
+    padding: 10px;
+    border-bottom: 1px solid #CCCCCC;
+    text-align: left;
+  }
+  
+  .actionButton {
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: #F2A900;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .actionButton:hover {
+    background-color: #E59400;
+  }
+  
