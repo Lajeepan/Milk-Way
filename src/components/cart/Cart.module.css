@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins';
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  font-weight: 500;
+  color: #333;
+}
+
+.cartItem {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #eee;
+  align-items: center;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.productImage {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.quantity {
+  width: 60px;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.couponSection {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.couponInput {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  min-width: 200px;
+}
+
+.button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #c82333;
+}
+
+.cartTotal {
+  max-width: 400px;
+  margin-left: 400px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 70px;
+}
+
+.cartTotalHeader {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.cartTotalRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.cartTotalRow:last-of-type {
+  border-bottom: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.checkoutButton {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .header {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cartItem {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    padding: 1rem 0;
+  }
+
+  .product {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .productImage {
+    width: 40px;
+    height: 40px;
+  }
+
+  .quantity {
+    width: 50px;
+  }
+
+  .cartTotal {
+    max-width: 100%;
+    margin-left: 0;
+    margin-top: 30px;
+  }
+
+  .couponSection {
+    flex-direction: column;
+    margin: 1rem 0;
+  }
+
+  .couponInput {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .cartItem {
+    grid-template-columns: 1fr;
+    padding: 0.5rem 0;
+  }
+
+  .quantity {
+    width: 40px;
+  }
+
+  .cartTotal {
+    padding: 1rem;
+    margin-top: 20px;
+  }
+
+  .cartTotalRow {
+    padding: 0.5rem 0;
+  }
+
+  .cartTotalHeader {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .checkoutButton {
+    margin-top: 0.5rem;
+  }
+}

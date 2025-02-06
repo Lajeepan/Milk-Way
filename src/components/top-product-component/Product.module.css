@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins';
+  margin: 0;
+  padding: 0;
+}
+
+.productHeader {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 0 20px;
+}
+
+/* Product Card Styling */
+.container > div {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 15px;
+  width: 220px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.container > div:hover {
+  transform: scale(1.05);
+}
+
+/* Image Styling */
+.Image {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Product Name Styling */
+.Name {
+  display: block;
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+/* Price Styling */
+.price {
+  font-weight: bold;
+  color: #e67e22;
+  margin-bottom: 10px;
+}
+
+/* Bottom Section Styling */
+.bottom {
+  display: flex;
+  gap: 50px;
+  justify-content: center; /* Centers content horizontally */
+}
+
+/* Link Hover Effect */
+.Link:hover {
+  background: #2980b9;
+}
+
+/* Responsive Design */
+
+/* Tablet and Small Screens */
+@media screen and (max-width: 1024px) {
+  .container {
+    justify-content: center;
+  }
+
+  .container > div {
+    width: 45%; /* Take up more space on tablets */
+    max-width: 400px;
+    margin: 10px;
+  }
+
+  .bottom {
+    display: block;
+    text-align: center;
+    gap: 20px;
+  }
+}
+
+/* Mobile Devices */
+@media screen and (max-width: 768px) {
+  .productHeader {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container > div {
+    width: 100%;
+    max-width: 350px; /* Ensure cards fit on small screens */
+    margin: 10px 0;
+  }
+
+  .bottom {
+    display: block;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .price {
+    font-size: 1.1em;
+  }
+
+  .Name {
+    font-size: 1.1em;
+  }
+}
+
+/* Extra Small Mobile Screens */
+@media screen and (max-width: 480px) {
+  .productHeader {
+    font-size: 1.2em;
+  }
+
+  .container > div {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .bottom {
+    display: block;
+    text-align: center;
+  }
+}

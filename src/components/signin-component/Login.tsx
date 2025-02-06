@@ -1,73 +1,114 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import axios from "axios";
-import { toast } from "react-toastify"; 
-import { useRouter } from "next/router";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import styles from './Login.module.css'; // Import CSS Module styles
+import Link from 'next/link';
 
-const Loginpage: React.FC = () => {
-  const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+const Login: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-
   const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+    setShowPassword((prev) => !prev);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    setErrorMessage('');
+    setSuccessMessage('');
+    setLoading(true);
+
+    const data = { email, password };
 
     try {
-      const response = await axios.post("/api/user/login", { email, password });
-       // Declare role once here
-      if (response.status === 201) {
-        toast.success(response.data.message, { style: { width: "400px" } });
-        // Redirect based on role
-        router.push("/dashboard");
+      const response = await fetch('/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.status === 200) {
+        const { user } = result;
+        console.log("User role received:", user.role);
+
+        // Handle success based on user role
+        switch (user.role) {
+          case 'buyer':
+            setSuccessMessage(result.message);
+            router.push('/home');
+            break;
+          case 'seller':
+            setSuccessMessage(result.message);
+            router.push('/seller');
+            break;
+          case 'admin':
+            setSuccessMessage(result.message);
+            router.push('/admin/dashboard');
+            break;
+          default:
+            setErrorMessage("Invalid user role. Please contact support.");
+            console.error("Invalid user role:", user.role);
+            break;
+        }
       } else {
-        toast.error(response.data.error);
+        setErrorMessage(result.message);
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.error || "Something went wrong.");
+    } catch (error) {
+      setErrorMessage('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
-        <h2>Login</h2>
-        <input
-          onChange={(e) => setEmail(e.target.value)}
-          type="text"
-          placeholder="Email"
-          required
-          className="input-field"
-        />
-        <div className="password-container">
+    <section className={styles.loginSection}>
+      <div className={styles.loginContainer}>
+        <h1>Log In</h1>
+        <form onSubmit={handleSubmit}>
           <input
-            onChange={(e) => setPassword(e.target.value)}
-            type={passwordVisible ? "text" : "password"}
-            placeholder="Password"
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            className="input-field"
           />
-          <span
-            className="show-password"
-            onClick={togglePasswordVisibility}
-            role="button"
-          >
-          </span>
-        </div>
-        <button type="submit" className="login-button">
-          Login
-        </button>
-        <Link href="/signup" className="create-account">
-          Create Account
-        </Link>
-      </form>
-    </div>
+          <div className={styles.passwordField}>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className={styles.eyeIcon}
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </span>
+          </div>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Log In'}
+          </button>
+        </form>
+        {errorMessage && <p className="error">{errorMessage}</p>}
+        {successMessage && <p className="success">{successMessage}</p>}
+        <p>
+          <a href="/forgot-password">Forgot Password?</a>
+        </p>
+        <p>
+          Don't have an account? <Link href="/signup">Sign Up</Link>
+        </p>
+      </div>
+    </section>
   );
 };
 
-export default Loginpage;
+export default Login;

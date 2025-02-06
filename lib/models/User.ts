@@ -1,11 +1,12 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 interface User extends Document {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
-  role: 'buyer' | 'seller' | 'admin' | 'courier';
-  phone?: string;
+  role: 'buyer' | 'seller' | 'admin' ;
+  phoneNumber: string;
   address?: string;
   adminAccessLevel?: number;
   image?: string;
@@ -14,11 +15,12 @@ interface User extends Document {
 
 const userSchema = new Schema<User>(
   {
-    name: { type: String, required: true },
+    firstName:{type: String, required: true},
+    lastName:{type: String, required: true},
     email: { type: String, required: true, unique: true, lowercase: true, match: [/^\S+@\S+\.\S+$/, 'Invalid email format'] },
     password: { type: String, required: true },
-    role: { type: String, enum: ['buyer', 'seller', 'admin', 'courier'], required: true, default: 'buyer' },
-    phone: { type: String },
+    role: { type: String, enum: ['buyer', 'seller', 'admin'], required: true, default: 'buyer' },
+    phoneNumber: { type: String },
     address: { type: String },
     adminAccessLevel: { type: Number, default: 1 },
     image: { type: String },

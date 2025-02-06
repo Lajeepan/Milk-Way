@@ -1,67 +1,56 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import dbConnect from "../../../../../lib/db"; // Ensure DB connection
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import DBconnect from "../../../../../lib/db";
-import UserSchema from "../../../../../lib/models/User";
-import bcrypt from 'bcrypt';
+import User from "../../../../../lib/models/User"; // Import User model
 
-const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET; // Define JWT_SECRET
 
-export const POST = async (req: NextRequest) => {
+export async function POST(req: Request) {
   try {
-    await DBconnect();
     const { email, password } = await req.json();
 
-    // Find the user by email
-    const user = await UserSchema.findOne({ email });
+    if (!email || !password) {
+      return NextResponse.json({ message: "Email and password are required" }, { status: 400 });
+    }
+
+    await dbConnect();
+
+    // Find user by email
+    const user = await User.findOne({ email });
+
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    console.log("User found:", user);
+    // console.log("Entered Password:", password);
+    // console.log("Stored Hashed Password:", user.password);
 
-    // Log password for debugging (don't do this in production)
-    console.log("Password being checked:", password);
-    console.log("Hashed Password from DB:", user.password);
+    // 🚀 Ensure bcrypt is correctly comparing the password
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
-    // Compare password with the hashed password
-    const isMatch = await bcrypt.compare(password, user.password);
-    console.log("Password match result:", isMatch);
-
-    if (!isMatch) {
-      return NextResponse.json({ error: "Invalid password" }, { status: 401 });
+    if (!isPasswordCorrect) {
+      console.error("Password mismatch!");
+      return NextResponse.json({ message: "Incorrect password" }, { status: 401 });
     }
 
-    // Generate JWT token without including password
-    const token = jwt.sign(
-      {
-        id: user._id,
-        email: user.email,
-        role: user.role,
-      },
-      JWT_SECRET!,
-      { expiresIn: "1h" }
-    );
+    const token = jwt.sign({ id: user._id, email: user.email, }, JWT_SECRET!, {
+      expiresIn: "1h",
+    });
 
-    // Prepare response and set token in cookie
-    const response = NextResponse.json(
-      { message: "Login successful", token, userType: user.role },
-      { status: 200 }
-    );
+    const response = NextResponse.json({ message: "Logged in successful", token, user: { email: user.email, role: user.role }  }, { status: 200 });
 
-    response.cookies.set("token", token, {
+    response.cookies.set("auth", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 15552000, // Adjust token expiration if needed
-      path: "/"
+      maxAge: 15552000,
+      path: "/",
     });
 
     return response;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Login error:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ message: "Server error, please try again later" }, { status: 500 });
   }
-};
+}

@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.bellContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.bell {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 50%;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablets and smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .bell {
+    font-size: 20px; /* Smaller bell icon on tablets */
+  }
+
+  .badge {
+    padding: 4px 7px;
+    font-size: 11px; /* Slightly smaller badge */
+  }
+}
+
+/* Mobile Phones and smaller screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .bell {
+    font-size: 18px; /* Smaller bell icon on mobile */
+  }
+
+  .badge {
+    padding: 3px 6px;
+    font-size: 10px; /* Even smaller badge */
+  }
+}

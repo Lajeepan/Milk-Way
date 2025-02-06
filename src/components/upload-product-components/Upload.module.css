@@ -1,43 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f7f7f7;
+  box-sizing: border-box;
+}
+
 .title {
   text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
 }
+
 .addProductForm {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 500px;
-    margin: 0 auto;
-    padding: 23px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: rgba(0, 0, 0, 0.1);
-    width: 40%;;
-    margin-top: 50px;
-  } 
-   
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 23px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+.inputField {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+}
+
+.inputField:focus {
+  border-color: #f04e45;
+  outline: none;
+}
+
+.submitButton {
+  background-color: #f04e45;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.submitButton:hover {
+  background-color: #e04c41;
+}
+
+.message {
+  text-align: center;
+  font-size: 14px;
+  color: #f04e45;
+}
+
+@media (max-width: 768px) {
+  .addProductForm {
+    width: 90%;
+    padding: 15px;
+  }
+
   .inputField {
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    font-size: 16px;
+    font-size: 14px;
+    padding: 8px;
   }
-  
-  .inputField:focus {
-    border-color: #f04e45;
-    outline: none;
-  }
-  
+
   .submitButton {
-    background-color: #f04e45;
-    color: white;
+    font-size: 14px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .addProductForm {
+    width: 95%;
+    padding: 12px;
+  }
+
+  .inputField {
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .submitButton {
+    font-size: 14px;
     padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
   }
-  
-  .submitButton:hover {
-    background-color: #f04e45;
-  }
-  
+}

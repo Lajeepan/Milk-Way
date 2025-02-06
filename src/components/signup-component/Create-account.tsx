@@ -1,117 +1,106 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { useRouter } from "next/router";
-import styles from "./Create-account.module.css"; // Ensure the correct CSS file name
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+import styles from './Create-account.module.css';
+import Link from 'next/link';
 
-const SignupPage: React.FC = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [password, setPassword] = useState("");
-  const [address, setAddress] = useState("");
-  const [role, setRole] = useState("buyer");
-  const [showPassword, setShowPassword] = useState(false);
+const Signup: React.FC = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const router = useRouter();
 
-  
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!firstName || !lastName || !email || !phoneNumber || !password || !address) {
-      toast.error("All fields are required!", { style: { width: "400px" } });
-      return;
-    }
-
+    
+    setErrorMessage('');
+    setSuccessMessage('');
+    
+    const data = { firstName, lastName, email, phoneNumber, password };
+    
     try {
-      const response = await axios.post("/api/user/register", {
-        name: `${firstName} ${lastName}`,
-        email,
-        phoneNumber,
-        password,
-        address,
-        role,
+      const response = await fetch('/api/user/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
-
-      if (response.status === 201) {
-        toast.success(response.data.message, { style: { width: "400px" } });
-        router.push("/dashboard");
+    
+      const result = await response.json();
+    
+      if (response.ok) {
+        setSuccessMessage(result.message);
+        localStorage.setItem('user', JSON.stringify(data));
+        router.push('/home');
+      } else {
+        setErrorMessage(result.message);
       }
-    } catch (error: any) {
-      toast.error(error.response?.data?.error || "Something went wrong.", { style: { width: "400px" } });
+    } catch (error) {
+      setErrorMessage('Something went wrong. Please try again.');
     }
   };
 
   return (
-    <div className={styles.signupContainer}>
-      <form onSubmit={handleSubmit} className={styles.signupForm}>
-        <h2>Signup</h2>
-
-        <label>
-          First Name
-          <input onChange={(e) => setFirstName(e.target.value)} type="text" placeholder="First Name" required />
-        </label>
-
-        <label>
-          Last Name
-          <input onChange={(e) => setLastName(e.target.value)} type="text" placeholder="Last Name" required />
-        </label>
-
-        <label>
-          Email
-          <input onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email" required />
-        </label>
-
-        <label>
-          Address
-          <input onChange={(e) => setAddress(e.target.value)} type="text" placeholder="Address" required />
-        </label>
-
-        <label>
-          Phone Number
-          <input onChange={(e) => setPhoneNumber(e.target.value)} type="tel" placeholder="Phone Number" required />
-        </label>
-
-        <label className={styles.passwordContainer}>
-          Password
+    <main className={styles.mainContainer}>
+      <div className={styles.signupContainer}>
+        <h1>Sign Up</h1>
+        <form onSubmit={handleSubmit}>
           <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <button
-            type="button"
-            className={styles.showPassword}
-            onClick={() => setShowPassword(!showPassword)}
-          >
-          </button>
-        </label>
-
-        <label>
-          Role
-          <select
-            name="role"
             className={styles.inputField}
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             required
-          >
-            <option value="buyer">Buyer</option>
-            <option value="seller">Seller</option>
-            <option value="courier">Courier</option>
-          </select>
-        </label>
-
-        <a href="#" className={styles.forgotPassword}>Forgot Password?</a>
-
-        <button type="submit" className={styles.signupButton}>Signup</button>
-      </form>
-    </div>
+            className={styles.inputField}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            className={styles.inputField}
+          />
+          <input
+            type="tel"
+            placeholder="Phone"
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            required
+            className={styles.inputField}
+          />
+          <div className={styles.passwordField}>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className={styles.inputField}
+            />
+            <span className={styles.eyeIcon}>👁️</span>
+          </div>
+          <button type="submit" className={styles.submitButton}>Sign Up</button>
+        </form>
+        {errorMessage && <p className={styles.error}>{errorMessage}</p>}
+        {successMessage && <p className={styles.success}>{successMessage}</p>}
+        <p>
+          Already have an account? <Link href="/signin" className={styles.loginLink}>Sign In</Link>
+        </p>
+      </div>
+    </main>
   );
 };
 
-export default SignupPage;
+export default Signup;

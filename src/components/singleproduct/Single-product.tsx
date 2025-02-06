@@ -1,5 +1,3 @@
-// src/app/product/[id]/page.tsx
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -45,17 +43,48 @@ export default function Singleproduct() {
     return <div>Loading...</div>; // Or handle loading state here
   }
 
+  // Date formatting function
+  const formattedDate = product.createdAt
+    ? new Date(product.createdAt).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
+
+  const handleAddToCart = () => {
+    // Handle adding to cart logic
+    console.log("Product added to cart");
+  };
+
+  const handleBuyNow = () => {
+    // Handle the buy now logic (e.g., redirect to checkout)
+    console.log("Proceeding to checkout");
+  };
+
   return (
-    <div className={styles.productContainer}>
-      <div className={styles.productImage}>
-        <Image src={product.image} alt={product.name} width={300} height={300} />
-      </div>
-      <div className={styles.productDetails}>
-        <h2 className={styles.productPrice}>R.S {product.price}</h2>
-        <p className={styles.productDate}>{product.createdAt}</p>
-        <h1 className={styles.productName}>{product.name}</h1>
-        <p className={styles.productDescription}>{product.description}</p>
-        <p className={styles.productQuantity}> {product.quantity} L</p>
+    <div className={styles.pageContainer}>
+      <div className={styles.productContainer}>
+        <div className={styles.productImage}>
+          <Image src={product.image} alt={product.name} width={400} height={300} />
+        </div>
+        <div className={styles.productDetails}>
+          <h1 className={styles.productName}>{product.name}</h1>
+          <h3 className={styles.productDescription}>{product.description}</h3>
+          <div className={styles.priceQuantity}>
+            <h3 className={styles.productPrice}>R.S {product.price}</h3>
+            <h3 className={styles.productQuantity}>{product.quantity} L</h3>
+          </div>
+          <h3 className={styles.productDate}>{formattedDate}</h3>
+          <div className={styles.buttonContainer}>
+            <button className={styles.addToCartButton} onClick={handleAddToCart}>
+              Add to Cart
+            </button>
+            <button className={styles.buyNowButton} onClick={()=> router.push(`/order`) }>
+              Buy Now
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

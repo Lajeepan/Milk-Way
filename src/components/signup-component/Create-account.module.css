@@ -1,99 +1,170 @@
-/* Signup Page Container */
-.signupContainer {
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main container */
+.mainContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f4f4f4;
+  height: calc(100vh - 60px);
+  padding: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-/* Signup Form */
-.signupForm {
-  background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+/* Signup container */
+.signupContainer {
   width: 100%;
   max-width: 400px;
+  text-align: center;
+  background-color: #f7f2f2;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.signupContainer h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: black;
+}
+
+.signupContainer form {
   display: flex;
   flex-direction: column;
-}
-
-.signupForm h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-/* Input Fields */
-.signupForm label {
-  font-size: 14px;
-  font-weight: 600;
-  margin-top: 10px;
-  display: block;
-}
-
-.signupForm input,
-.signupForm select {
-  width: 100%; /* Ensure all inputs take full width */
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  outline: none;
+  gap: 20px;
 }
 
 .inputField {
-  background: white;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Password Field with Show/Hide Button */
-.passwordContainer {
+.inputField:focus {
+  border-color: #f04e45;
+  box-shadow: 0 0 5px rgba(240, 78, 69, 0.2);
+}
+
+.passwordField {
   position: relative;
 }
 
-.passwordContainer input {
-  width: 100%; /* Ensure full width for password input */
-  ; /* Make room for the show/hide button */
-}
-
-.showPassword {
+.eyeIcon {
   position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
+  right: 7px;
+  top: 10px;
   cursor: pointer;
-  font-size: 18px;
 }
 
-/* Forgot Password */
-.forgotPassword {
-  text-align: center;
-  display: block;
-  margin-top: 10px;
-  color: #007bff;
-  text-decoration: none;
-}
-
-.forgotPassword:hover {
-  text-decoration: underline;
-}
-
-/* Signup Button */
-.signupButton {
-  margin-top: 15px;
-  background: #007bff;
-  color: white;
+.submitButton {
   padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #f04e45;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  transition: 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.signupButton:hover {
-  background: #0056b3;
+.submitButton:hover {
+  background-color: #d43f38;
+}
+
+.error {
+  color: #f04e45;
+}
+
+.success {
+  color: #4caf50; /* Success green */
+}
+
+.signupContainer p {
+  margin-top: 15px;
+  font-size: 14px;
+  color: black;
+}
+
+.loginLink {
+  color: #f04e45;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.loginLink:hover {
+  color: #d43f38;
+}
+
+/* Responsive Styles */
+
+/* For smaller screens */
+@media (max-width: 768px) {
+  .mainContainer {
+    padding: 10px;
+  }
+
+  .signupContainer {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .signupContainer h1 {
+    font-size: 24px;
+  }
+
+  .inputField {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .submitButton {
+    font-size: 14px;
+  }
+
+  .loginLink {
+    font-size: 12px;
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+  .signupContainer {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .signupContainer h1 {
+    font-size: 22px;
+  }
+
+  .inputField {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .submitButton {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .error, .success {
+    font-size: 12px;
+  }
+
+  .loginLink {
+    font-size: 12px;
+  }
 }

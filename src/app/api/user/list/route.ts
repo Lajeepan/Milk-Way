@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import DBconnect from "../../../../../lib/db";
 import UserSchema from "../../../../../lib/models/User";
 

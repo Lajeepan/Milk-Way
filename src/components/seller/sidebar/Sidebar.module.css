@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: #1e2a33;
+  color: white;
+  padding: 30px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #f39c12;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.notificationContainer {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+}
+
+.navItem {
+  margin: 15px 0;
+}
+
+.navLink {
+  color: #bdc3c7;
+  text-decoration: none;
+  font-size: 18px;
+  display: block;
+  padding: 12px 20px;
+  border-radius: 5px;
+  transition: background 0.3s, padding-left 0.3s;
+}
+
+.navLink:hover {
+  background: #34495e;
+  padding-left: 25px;
+  color: #ecf0f1;
+}
+
+.logoutBtn {
+  background: #e74c3c;
+  border: none;
+  color: white;
+  padding: 12px;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 20px;
+  transition: background 0.3s;
+}
+
+.logoutBtn:hover {
+  background: #c0392b;
+}
+
+/* Media Queries for Responsiveness */
+
+/* Tablets and smaller screens (max-width: 768px) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; /* Decrease sidebar width on tablets */
+    padding: 20px;
+  }
+
+  .logo {
+    font-size: 20px; /* Slightly smaller logo */
+    margin-bottom: 20px;
+  }
+
+  .navLink {
+    font-size: 16px; /* Smaller font size for navigation links */
+  }
+
+  .logoutBtn {
+    padding: 10px; /* Slightly smaller padding for logout button */
+  }
+}
+
+/* Mobile Phones and smaller screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%; /* Sidebar takes full width on mobile */
+    height: auto;
+    position: static;
+    padding: 15px;
+    box-shadow: none;
+  }
+
+  .logo {
+    font-size: 18px; /* Even smaller logo for mobile */
+    margin-bottom: 15px;
+  }
+
+  .navLink {
+    font-size: 14px; /* Smaller font size for navigation links on mobile */
+    padding: 10px 15px;
+  }
+
+  .logoutBtn {
+    padding: 8px; /* Smaller padding for mobile logout button */
+  }
+}

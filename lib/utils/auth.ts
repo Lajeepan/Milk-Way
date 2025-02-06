@@ -1,22 +1,30 @@
-import bcrypt from 'bcryptjs';
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
-/**
- * Hash the password using bcrypt
- * @param {string} password - The plain text password to be hashed
- * @returns {string} - The hashed password
- */
-export const hashPassword = async (password: string) => {
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-  return hashedPassword;
+const JWT_SECRET: string = process.env.JWT_SECRET as string;
+
+export const hashPassword = (password: string): string => {
+  return bcrypt.hashSync(password, 8);
 };
 
-/**
- * Compare the given password with the stored hashed password
- * @param {string} password - The plain text password to compare
- * @param {string} hashedPassword - The stored hashed password
- * @returns {boolean} - Returns true if passwords match, false otherwise
- */
-export const comparePassword = async (password: string, hashedPassword: string) => {
-  return bcrypt.compare(password, hashedPassword);
+export const comparePassword = (password: string, hashedPassword: string): boolean => {
+  return bcrypt.compareSync(password, hashedPassword);
+};
+
+export interface UserPayload {
+  username: string;
+  role: string;
+}
+
+export const generateToken = (user: UserPayload): string => {
+  return jwt.sign(user, JWT_SECRET, { expiresIn: "1h" });
+};
+
+export const verifyToken = (token: string): UserPayload | null => {
+  try {
+    return jwt.verify(token, JWT_SECRET) as UserPayload;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

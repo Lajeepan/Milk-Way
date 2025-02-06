@@ -1,37 +1,71 @@
 import { NextRequest, NextResponse } from "next/server";
-import DBconnect from "../../../../../lib/db";
-import UserSchema from "../../../../../lib/models/User";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import dbConnect from "../../../../../lib/db";
+import User from "../../../../../lib/models/User";
 
-export const POST = async (req: NextRequest) => {
+// Load environment variables
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) throw new Error("JWT_SECRET is not defined in environment variables.");
+
+// Route for user registration
+export async function POST(req: NextRequest) {
   try {
-    await DBconnect();
+    const { firstName, lastName, email, password, phoneNumber } = await req.json();
 
-    const { name, email, password, role } = await req.json();
+    if (!firstName || !lastName || !email || !password || !phoneNumber) {
+      return NextResponse.json({ message: "All fields are required" }, { status: 400 });
+    }
 
-    if (!name || !email || !password || !role) {
+    await dbConnect();
+
+    // Check if email or phone number already exists
+    const existingUser = await User.findOne({ $or: [{ email }, { phoneNumber }] });
+    if (existingUser) {
       return NextResponse.json(
-        { message: "Name, Email, and Password are required" },
+        { message: existingUser.email === email ? "Email already exists" : "Phone number already exists" },
         { status: 400 }
       );
     }
 
-    // Hash the password before saving
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create a new user
-    const newUser = new UserSchema({
-      name,
+    // Create new user
+    const newUser = new User({
+      firstName,
+      lastName,
       email,
-      password: hashedPassword,  // Save the hashed password
-      role,
+      password: hashedPassword,
+      phoneNumber,
+      role: "buyer",
     });
 
     await newUser.save();
 
-    return NextResponse.json({ message: "User created successfully" }, { status: 201 });
+     // Ensure JWT_SECRET is not undefined
+     if (!JWT_SECRET) {
+      throw new Error("JWT_SECRET is not defined.");
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ id: newUser._id, email: newUser.email }, JWT_SECRET, { expiresIn: "1h" });
+
+    // Create response with cookie
+    const response = NextResponse.json({ message: "User registered successfully", token }, { status: 201 });
+
+    response.cookies.set("auth", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 15552000,
+      path: "/",
+    });
+
+    return response;
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ message: "Error creating user" }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json({ message: "Something went wrong", error: errorMessage }, { status: 500 });
   }
-};
+}
