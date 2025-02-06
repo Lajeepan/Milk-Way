@@ -1,0 +1,107 @@
+/* UserTable.module.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins';
+  margin: 0;
+  padding: 0;
+}
+
+.tableSection {
+  background-color: #FFFFFF;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-left: 300px;
+}
+
+/* Section Title */
+.sectionTitle {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #333333;
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table Header */
+.th {
+  text-align: left;
+  background-color: #F8D8A0;
+  color: black;
+  padding: 10px;
+  border-bottom: 1px solid #CCCCCC;
+}
+
+/* Table Data */
+.td {
+  padding: 10px;
+  border-bottom: 1px solid #CCCCCC;
+  text-align: left;
+}
+
+/* Action Button */
+.actionButton {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #F2A900;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.actionButton:hover {
+  background-color: #E59400;
+}
+
+/* Make the table responsive */
+@media screen and (max-width: 768px) {
+  /* Adjusting table section */
+  .tableSection {
+    margin-left: 20px;
+    padding: 15px;
+  }
+
+  /* Adjusting table and header font sizes */
+  .sectionTitle {
+    font-size: 18px;
+  }
+
+  .th, .td {
+    padding: 8px;
+  }
+
+  /* Adjusting action button for smaller screens */
+  .actionButton {
+    padding: 4px 8px;
+  }
+}
+
+/* Make the table fully responsive for very small screens */
+@media screen and (max-width: 480px) {
+  /* Adjusting table section */
+  .tableSection {
+    margin-left: 10px;
+    padding: 10px;
+  }
+
+  .sectionTitle {
+    font-size: 16px;
+  }
+
+  .th, .td {
+    padding: 6px;
+  }
+
+  .actionButton {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
+}

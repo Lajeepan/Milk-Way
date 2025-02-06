@@ -1,54 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header styling */
 .productHeader {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #333;
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #333;
 }
 
+/* Container holding the product cards */
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
 }
 
+/* Each individual product card */
 .container > div {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin: 10px;
-    padding: 15px;
-    width: 220px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    transition: transform 0.2s;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 15px;
+  width: 220px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.2s;
 }
 
+/* Hover effect for product cards */
 .container > div:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 
+/* Image within the product card */
 .Image {
-    max-width: 100%;
-    border-radius: 8px;
+  max-width: 100%;
+  border-radius: 8px;
+  height: 200px;
+  object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
 }
 
+/* Product name styling */
 .Name {
-    display: block;
-    font-size: 1.2em;
-    margin: 10px 0;
+  display: block;
+  font-size: 1.2em;
+  margin: 10px 0;
 }
 
+/* Price styling */
 .price {
-    font-weight: bold;
-    color: #e67e22;
-    margin-bottom: 10px;
+  font-weight: bold;
+  color: #e67e22;
+  margin-bottom: 10px;
 }
 
+/* Bottom section for price and rating */
 .bottom {
-    display: flex;
-    gap: 50px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  color: #555;
+  align-items: center;
 }
 
+/* Link hover effect */
 .Link:hover {
-    background: #2980b9;
+  background: #2980b9;
+}
+
+/* Responsive breakpoints */
+
+/* For tablets and smaller screens */
+@media (max-width: 768px) {
+  .productHeader {
+    font-size: 1.5em;
+  }
+
+  .container {
+    justify-content: center;
+  }
+
+  .container > div {
+    width: 45%; /* Allows 2 items per row on medium-sized screens */
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* For smaller screens (mobile devices) */
+@media (max-width: 480px) {
+  .productHeader {
+    font-size: 1.2em;
+  }
+
+  .container {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .container > div {
+    width: 100%; /* Single product per row on small screens */
+  }
+
+  .bottom {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .Image {
+    height: 180px; /* Slightly reduced image size for small screens */
+  }
 }

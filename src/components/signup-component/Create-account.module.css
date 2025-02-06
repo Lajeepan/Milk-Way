@@ -1,121 +1,170 @@
-/* Container for the form */
-.formContainer {
-  max-width: 400px;
-  margin: 50px auto;
-  padding: 30px;
-  background: linear-gradient(135deg, #f6f7f8, #d9e4f5);
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-  animation: slideIn 0.5s ease-out;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-.formContainer:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-  transform: translateY(-10px);
+/* Main container */
+.mainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 60px);
+  padding: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-/* Keyframe for slide-in animation */
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Title Styling */
-.formTitle {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 25px;
-  color: #333;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: color 0.3s ease;
-}
-
-.formTitle:hover {
-  color: #007bff;
-}
-
-/* Input Fields */
-.inputField {
+/* Signup container */
+.signupContainer {
   width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+  background-color: #f7f2f2;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.signupContainer h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: black;
+}
+
+.signupContainer form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputField {
+  padding: 10px;
   font-size: 16px;
-  color: #333;
-  background-color: #f9f9f9;
-  box-sizing: border-box;
-  transition: all 0.3s ease;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .inputField:focus {
-  border-color: #007bff;
-  outline: none;
-  background-color: #e6f0ff;
-  box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+  border-color: #f04e45;
+  box-shadow: 0 0 5px rgba(240, 78, 69, 0.2);
 }
 
-/* Button Styling */
-.submitButton {
-  width: 100%;
-  padding: 14px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 18px;
+.passwordField {
+  position: relative;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 7px;
+  top: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.submitButton {
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #f04e45;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .submitButton:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+  background-color: #d43f38;
 }
 
-.submitButton:active {
-  transform: scale(1);
+.error {
+  color: #f04e45;
 }
 
-/* Redirect Styling */
-.redirect {
-  text-align: center;
+.success {
+  color: #4caf50; /* Success green */
+}
+
+.signupContainer p {
   margin-top: 15px;
+  font-size: 14px;
+  color: black;
 }
 
-.redirect a {
-  color: #007bff;
+.loginLink {
+  color: #f04e45;
   text-decoration: none;
-  font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-.redirect a:hover {
-  text-decoration: underline;
+.loginLink:hover {
+  color: #d43f38;
 }
 
+/* Responsive Styles */
 
-/* Responsive Design */
+/* For smaller screens */
 @media (max-width: 768px) {
-  .formContainer {
-    padding: 20px;
+  .mainContainer {
+    padding: 10px;
   }
 
-  .formTitle {
+  .signupContainer {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  .signupContainer h1 {
     font-size: 24px;
   }
 
-  .inputField,
+  .inputField {
+    font-size: 14px;
+    padding: 8px;
+  }
+
   .submitButton {
     font-size: 14px;
+  }
+
+  .loginLink {
+    font-size: 12px;
+  }
+}
+
+/* For mobile devices */
+@media (max-width: 480px) {
+  .signupContainer {
+    padding: 15px;
+    max-width: 100%;
+  }
+
+  .signupContainer h1 {
+    font-size: 22px;
+  }
+
+  .inputField {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .submitButton {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .error, .success {
+    font-size: 12px;
+  }
+
+  .loginLink {
+    font-size: 12px;
   }
 }

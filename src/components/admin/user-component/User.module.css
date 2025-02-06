@@ -1,0 +1,213 @@
+/* Global styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sidebar styling */
+.sidebar {
+  width: 250px;
+  background-color: #1e2a33;
+  color: #FFF8E1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-weight: bold;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+}
+
+.sidebarContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebarItem {
+  padding: 15px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #FFF8E1;
+  text-align: left;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.sidebarItem:hover {
+  background-color: #FFE082;
+}
+
+.sidebarItem a {
+  text-decoration: none;
+  color: black;
+}
+
+/* Container styling */
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-left: 270px; /* Adjust this for sidebar width */
+}
+
+/* Title styling */
+.title {
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Stats section */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding-top: 60px;
+}
+
+.statCard {
+  background-color: #FFF;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.statNumber {
+  font-size: 32px;
+  color: #F2A900;
+  margin-bottom: 10px;
+}
+
+.statLabel {
+  font-size: 16px;
+  color: #666666;
+}
+
+/* User table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 15px;
+  text-align: left;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.table th {
+  background-color:  #e63946;
+  color: white;
+  font-weight: 600;
+}
+
+.table td {
+  background-color: #fff;
+  color: #555;
+}
+
+.table tr:hover {
+  background-color: #e6f7ff;
+  cursor: pointer;
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Make table responsive */
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    width: 200px; /* Reduce sidebar width on tablet-sized screens */
+  }
+
+  .container {
+    margin-left: 220px; /* Adjust container margin when sidebar shrinks */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  /* Sidebar styling for smaller screens */
+  .sidebar {
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px; /* Space for content below */
+  }
+
+  .sidebarItem {
+    font-size: 16px;
+  }
+
+  .container {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .statCard {
+    margin: 10px 0;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .table {
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .statNumber {
+    font-size: 24px;
+  }
+
+  .statLabel {
+    font-size: 14px;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+  }
+}

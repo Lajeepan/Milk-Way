@@ -14,15 +14,19 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.1",
+    "cookie-parser": "^1.4.7",
     "express": "^4.21.2",
+    "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
     "mongoose": "^8.9.6",
     "next": "15.1.6",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.10.0",
+    "nookies": "^2.5.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-toastify": "^11.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -33,6 +37,7 @@
     "@types/next-auth": "^3.13.0",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",
+    "@types/nookies": "^1.1.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

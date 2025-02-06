@@ -8,7 +8,7 @@ const Hero = () => {
         src="/images/hero/banner.jpg"
         alt="Banner Image"
         layout="fill"
-        objectFit="cover"
+        // objectFit=""
         className={styles.image}
         priority
       />

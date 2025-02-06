@@ -1,64 +1,113 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import styles from './Login.module.css'; // External module for CSS
+import styles from './Login.module.css'; // Import CSS Module styles
 import Link from 'next/link';
 
-const Login = () => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
-  const login = async () => {
-    setError(''); // Reset any existing error before trying login
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
 
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    setErrorMessage('');
+    setSuccessMessage('');
+    setLoading(true);
 
-    const data = await res.json();
+    const data = { email, password };
 
-    if (res.ok) {
-      localStorage.setItem('token', data.token);
-      router.push('/protected');
-    } else {
-      setError(data.message || 'Something went wrong. Please try again.');
+    try {
+      const response = await fetch('/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (response.status === 200) {
+        const { user } = result;
+        console.log("User role received:", user.role);
+
+        // Handle success based on user role
+        switch (user.role) {
+          case 'buyer':
+            setSuccessMessage(result.message);
+            router.push('/home');
+            break;
+          case 'seller':
+            setSuccessMessage(result.message);
+            router.push('/seller');
+            break;
+          case 'admin':
+            setSuccessMessage(result.message);
+            router.push('/admin/dashboard');
+            break;
+          default:
+            setErrorMessage("Invalid user role. Please contact support.");
+            console.error("Invalid user role:", user.role);
+            break;
+        }
+      } else {
+        setErrorMessage(result.message);
+      }
+    } catch (error) {
+      setErrorMessage('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className={styles.formContainer}>
-      <h2 className={styles.formTitle}>Signin</h2>
-      {error && <p className={styles.error}>{error}</p>}
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Enter your email"
-        className={styles.inputField}
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Enter your password"
-        className={styles.inputField}
-      />
-      <button className={styles.submitButton} onClick={login}>
-        Login
-      </button>
-      <div className={styles.redirect}>
-        <p> Don&apos;t have an account?</p>
-        <Link href="/signup">
-          Sign in here
-        
-        </Link>
+    <section className={styles.loginSection}>
+      <div className={styles.loginContainer}>
+        <h1>Log In</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <div className={styles.passwordField}>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className={styles.eyeIcon}
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </span>
+          </div>
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging in...' : 'Log In'}
+          </button>
+        </form>
+        {errorMessage && <p className="error">{errorMessage}</p>}
+        {successMessage && <p className="success">{successMessage}</p>}
+        <p>
+          <a href="/forgot-password">Forgot Password?</a>
+        </p>
+        <p>
+          Don't have an account? <Link href="/signup">Sign Up</Link>
+        </p>
       </div>
-    </div>
+    </section>
   );
 };
 
